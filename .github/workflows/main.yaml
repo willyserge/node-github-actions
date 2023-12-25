@@ -23,7 +23,7 @@ jobs:
     - run: npm test
 
     - name: Build Docker image
-        run: |
+        run:
           docker build -t willyserge/gh-node-image:${{ github.sha }} .
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push willyserge/gh-node-image:${{ github.sha }}
