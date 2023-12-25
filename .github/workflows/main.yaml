@@ -8,22 +8,21 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 18
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: 'npm'
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
 
-    - run: npm install
-    - run: npm test
+      - run: npm install
+      - run: npm test
 
-    - name: Build Docker image
-        run:
+      - name: Build Docker image
+        run: |
           docker build -t willyserge/gh-node-image:${{ github.sha }} .
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push willyserge/gh-node-image:${{ github.sha }}
